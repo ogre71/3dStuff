@@ -1,11 +1,11 @@
 // LetterBlock.scad - Basic usage of text() and linear_extrude()
 
 // Module instantiation
-LetterBlock("Cephalotus Follicularis");
+LetterBlock("darlingtonia californica");
 
 // Module definition.
 // size=30 defines an optional parameter with a default value.
-module LetterBlock(letter, size=10) {
+module LetterBlock(letter, size=10, length=20) {
     difference() {
         translate([0, 
                    0, //-size / 2.5, 
@@ -19,10 +19,9 @@ module LetterBlock(letter, size=10) {
         difference() {
             difference() {
                 union() {
-                    translate([-size * 4.7,
+                    translate([-size * 4.5,
                             0, 
-                            -size / 4
-                            ]) {
+                            0]) {
                         // convexity is needed for correct preview
                         // since characters can be highly concave
                         linear_extrude(height=size / 2, convexity=4)
@@ -36,10 +35,10 @@ module LetterBlock(letter, size=10) {
                     
                     translate([-size * 4.7, 
                             -size, 
-                            -size / 4
+                            0
                             ]) {
                         linear_extrude(height=size / 2, convexity=4)
-                            text("Hummer's Giant", 
+                            text("\"Gasquet Creek\"", 
                                 size=size*22/30,
                                 font="Bitstream Vera Sans",
                                 halign="center"
