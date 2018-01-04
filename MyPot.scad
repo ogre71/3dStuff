@@ -1,3 +1,5 @@
+fn = 40;
+
 module roundedRect(size, radius, scale)
 {
 	x = size[0];
@@ -8,17 +10,17 @@ module roundedRect(size, radius, scale)
 	hull()
 	{
 		// place 4 circles in the corners, with the given radius
-		translate([(-x/2)+(radius/2), (-y/2)+(radius/2), 0])
-		circle(r=radius);
+		translate([(-x/2)+radius, (-y/2)+radius, 0])
+		circle(r=radius, $fn=fn);
 	
-		translate([(x/2)-(radius/2), (-y/2)+(radius/2), 0])
-		circle(r=radius);
+		translate([(x/2)-radius, (-y/2)+radius, 0])
+		circle(r=radius, $fn=fn);
 	
-		translate([(-x/2)+(radius/2), (y/2)-(radius/2), 0])
-		circle(r=radius);
+		translate([(-x/2)+radius, (y/2)-radius, 0])
+		circle(r=radius, $fn=fn);
 	
-		translate([(x/2)-(radius/2), (y/2)-(radius/2), 0])
-		circle(r=radius);
+		translate([(x/2)-radius, (y/2)-radius, 0])
+		circle(r=radius, $fn=fn);
 	}
 }
 
@@ -30,31 +32,33 @@ module shelledRoundedRect(size, radius, scale, thickness)
     
     difference() { 
         roundedRect(size, radius, scale, $fn=20);
-        roundedRect([x - thickness, y - thickness, z ], 1, ((x * scale) - thickness)/(x - thickness), $fn=20);
+        roundedRect([x - thickness, y - thickness, z ], radius, scale /*((x * scale) - thickness)/(x - thickness)*/, $fn=fn);
     }
 }
 
-module solidPot(shell_thickness) 
+module solidPot(shell_thickness, radius) 
 {
+    
     // The base
-    roundedRect([75,75, shell_thickness], 1, 1, $fn=20);
+    roundedRect([75,75, shell_thickness], radius, 1, $fn=fn);
 
     // The first tier
-    shelledRoundedRect([50, 50, 76], 1, 1.5, shell_thickness);  
+    shelledRoundedRect([50, 50, 76], radius, 1 + (71.25 - 50) / 50, shell_thickness);  
 
     // The second Tier
     translate([0, 0, 76]) 
-        shelledRoundedRect([75, 75, 4], 1.5, 1.05, shell_thickness);
+        shelledRoundedRect([71.25, 71.25, 4], radius * (1 + (71.25 - 50) / 50), 1 + (75 - 71.25) / 71.25, shell_thickness * (1 + (71.25 - 50) / 50));
 
     // The third tier
     translate([0, 0, 80])
-        shelledRoundedRect([78.75, 78.75, 10], 1.5, 1, shell_thickness);
+        shelledRoundedRect([75, 75, 10], radius * (1 + (75 - 50) / 50), 1, shell_thickness * (1 + (75 - 50) / 50));
 }
 
 epsilon = .05;
+radius = 10; 
 
 difference() {     
-    solidPot(3);
+    solidPot(3, radius);
     
     // drainage holes 
     union() { 
@@ -65,5 +69,25 @@ difference() {
         for (a =[-19:6:17])
             translate([-40, a, 3])
                 cube([80, 3, 3]);
+        
+        translate([-75 / 2 + radius, -75/2 + radius, 0])
+            cylinder(h=12, r=5, center=true, $fn = fn);
+        translate([75 / 2 - radius, -75/2 + radius, 0])
+            cylinder(h=12, r=5, center=true, $fn = fn);
+        translate([-75 / 2 + radius, 75/2 - radius, 0])
+            cylinder(h=12, r=5, center=true, $fn = fn);
+        translate([75 / 2 - radius, 75/2 - radius, 0])
+            cylinder(h=12, r=5, center=true, $fn = fn);
+        
+        translate([-50 / 2 + radius, -50/2 + radius, 0])
+            cylinder(h=12, r=5/2, center=true, $fn = fn);
+        translate([50 / 2 - radius, -50/2 + radius, 0])
+            cylinder(h=12, r=5/2, center=true, $fn = fn);
+        translate([-50 / 2 + radius, 50/2 - radius, 0])
+            cylinder(h=12, r=5/2, center=true, $fn = fn);
+        translate([50 / 2 - radius, 50/2 - radius, 0])
+            cylinder(h=12, r=5/2, center=true, $fn = fn);
+        
+        cylinder(h=12, r=5/2, center=true, $fn = fn);
     }
 }
