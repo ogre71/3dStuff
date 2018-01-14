@@ -65,80 +65,7 @@ difference() {
         r = 4;
         offset = .4; 
         
-        //posts
-        translate([-75/2 + r,-75/2 + radius * 3 + r,0])
-            cylinder(h=thickness * 2.5, r=r, center=false, $fn = fn);    
-        translate([-75/2 + r + offset,-75/2 + radius * 3 + r, thickness * 2])
-            cylinder(h=1, r=r, center=false, $fn = fn);        
-        
-        translate([-75/2 + r,75/2 - radius * 3 - r,0])
-            cylinder(h=thickness * 2.5, r=r, center=false, $fn = fn); 
-        translate([-75/2 + r + offset,75/2 - radius * 3 - r, thickness * 2])
-            cylinder(h=1, r=r, center=false, $fn = fn);    
-        
-        translate([-75/2 + radius * 3 + r,-75/2 + r,0])
-            cylinder(h=thickness * 2.5, r=r, center=false, $fn = fn);    
-        translate([-75/2 + radius * 3 + r, -75/2 + r  + offset, thickness * 2])
-            cylinder(h=1, r=r, center=false, $fn = fn);    
-        
-        translate([75/2 - radius * 3 - r,-75/2 + r,0])
-            cylinder(h=thickness * 2.5, r=r, center=false, $fn = fn);
-        translate([75/2 - radius * 3 - r,-75/2 + r + offset, thickness * 2])
-            cylinder(h=1, r=r, center=false, $fn = fn);    
-        
-        //joiners
-        difference() { 
-            translate([+75/2 - radius * 2,-75/2 + radius * 1.5 + r, thickness])
-                cube([radius * 4.25, 15, thickness]);  
-            
-            union() { 
-                translate([+75/2 + radius,-75/2 + radius * 3 + r,0])
-                    cylinder(h=10 + thickness, r=r+r/10, center=false, $fn = fn);    
-            
-                translate([+75/2,-75/2 + radius + r, 0])
-                    cube([20, 20, thickness + .2]);    
-            }
-        }
-
-        difference() { 
-            translate([+75/2 - radius * 2,75/2 - radius * 4.5 - r, thickness * .9])
-                cube([radius * 4.25, 15, thickness]);  
-            
-            union() { 
-                translate([+75/2 + radius,75/2 - radius * 3 - r,0])
-                    cylinder(h=10 + thickness, r=r+r/10, center=false, $fn = fn);    
-                
-                translate([+75/2, 75/2 - radius * 5 - r, 0])
-                    cube([20, 20, thickness + .2]);    
-            }
-        }
-
-        difference() { 
-            translate([-75/2 + radius * 1.5 + r, +75/2 - radius * 2, thickness])
-                cube([15,radius * 4.25,  thickness]);  
-            
-            union() { 
-                translate([-75/2 + radius * 3 + r,+75/2 + radius,0])
-                    cylinder(h=10 + thickness, r=r+r/10, center=false, $fn = fn);    
-                    
-                translate([-75/2 + radius * 2, 75/2, 0])
-                    cube([20, 20, thickness + .2]);    
-            }
-        
-        }
-        
-        difference() { 
-            translate([75/2 - radius * 4.5 - r,+75/2 - radius * 2, thickness * .9])
-                cube([ 15,radius * 4.25, thickness]);  
-            
-            union() { 
-                translate([75/2 - radius * 3 - r,+75/2 + radius,0])
-                    cylinder(h=10 + thickness, r=r+r/10, center=false, $fn = fn);    
-                        
-                translate([75/2 - radius * 4 - r, 75/2, 0])
-                    cube([20, 20, thickness + .2]);    
-            }
-        }
+      
     }
     
     // drainage holes 
@@ -169,6 +96,7 @@ difference() {
         translate([50 / 2 - radius, 50/2 - radius, 0])
             cylinder(h=12, r=5/2, center=true, $fn = fn);
         
-        cylinder(h=12, r=10, center=true, $fn = fn);
+        //center hole
+        cylinder(h=12, r=5, center=true, $fn = fn);
     }
 }
