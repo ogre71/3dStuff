@@ -1,5 +1,5 @@
-letter="heliamphora nutans";
-smallText="Giant";
+letter="sarracenia";
+smallText="open pollenated";
     
 length = 90;    
 textStart = 0; 
@@ -29,7 +29,7 @@ module GetText(bigText, littleText) {
 }
 
 // First extrusion 
-difference () { 
+*difference () { 
     color("white", 1.0)
         union() { 
             //stem

@@ -1,5 +1,5 @@
-letter="heliamphora nutans";
-smallText="Giant";
+letter="sarracenia purpurea";
+smallText="Alpena, MI";
     
 length = 90;    
 textStart = 0; 
