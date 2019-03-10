@@ -26,6 +26,7 @@ function Get-3dMMPlantLabel {
     Param($mainText, $smallText="")
     process {
         #$template = [System.IO.File]::ReadAllText("C:\Users\ogre7\scratch\20180829\3dStuff\PlantLabelTemplate.scad")
+        [System.Environment]::CurrentDirectory = Get-Location
         $template = [System.IO.File]::ReadAllText("PlantLabelTemplate.scad")
         $output = $template.Replace("<Main Text>", $mainText).Replace("<Small Text>", $smallText)
         $outputOne = $output.Replace("/*marker_two*/", "*")
