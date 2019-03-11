@@ -40,9 +40,6 @@ function Get-3dMMPlantLabel {
         & "C:\Program Files\OpenSCAD\openscad.exe" -o "$($mainText)1.amf" $outputOneFileName
         & "C:\Program Files\OpenSCAD\openscad.exe" -o "$($mainText)2.amf" $outputTwoFileName
 
-        Remove-Item $outputOneFileName
-        Remove-Item $outputTwoFileName
-        
         while(!(Test-Path("$($mainText)1.amf"))){
             Start-Sleep -milliseconds 100 
         }
@@ -72,6 +69,9 @@ function Get-3dMMPlantLabel {
         $xmlDocOne.SelectSingleNode("amf").AppendChild($outputOneCloneCopy) | Out-null 
 
         $xmlDocOne.Save("$($mainText).amf")
+
+        Remove-Item $outputOneFileName
+        Remove-Item $outputTwoFileName
 
         Remove-Item "$($mainText)1.amf"
         Remove-Item "$($mainText)2.amf" 
